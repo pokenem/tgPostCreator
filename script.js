@@ -1,7 +1,6 @@
 function changeTgContent(){
     var tgContent = document.getElementById('tgContent');
     var textArea = document.getElementById('floatingTextarea');
-    console.log(textArea.value);
     let textContent = "";
     for(let i = 0; i < textArea.value.length; i++)
     {
@@ -19,14 +18,12 @@ function changeTgContent(){
 function addImage(){
     
     var file = document.getElementById('inputGroupFile').files[0];
-    console.log(file);
     const img = document.createElement("img");
     var tgContent = document.getElementById('tgContent');
     img.className = "img-fluid";
     img.style.width = "350px";
     var div = document.getElementById('showPost');
     var el = div.getElementsByTagName('img');
-    console.log(el);
     if(el.length != 0)
     {
         div.removeChild(el[0]);
@@ -34,6 +31,7 @@ function addImage(){
     let reader = new FileReader();
         reader.onloadend = function (){
         img.src = reader.result;
+        img.setAttribute('id','image');
         div.insertBefore(img, tgContent);
     }
     if(file){
@@ -91,12 +89,14 @@ function addNewRow(){
 
     mainCol.appendChild(row);
     mainCol.appendChild(addBtn);
+    mainCol.setAttribute('name', 'buttonRow' );
     buttons.insertBefore(mainCol, addRow);
 
     //create 1-st btn with del btn
 
     addBtn.addEventListener('click', function(e){
         var btnRow = document.createElement('div');
+
         btnRow.className = 'row g-3 my-3';
         var colbtn1 = document.createElement('div');
         var colbtn2 = document.createElement('div');
@@ -109,6 +109,7 @@ function addNewRow(){
         input1.type = 'text';
         input1.className == 'form-control';
         input1.placeholder = 'Название кнопки';
+        input1.setAttribute('name', 'buttonText');
 
         input1.addEventListener('input', function(e){
             tgButton.innerHTML = input1.value;
@@ -118,6 +119,7 @@ function addNewRow(){
         input2.type = 'text';
         input2.className == 'form-control';
         input2.placeholder = 'Ссылка для кнопки';
+        input2.setAttribute('name','buttonUrl');
 
         input2.addEventListener('input', function(e){
             tgButton.dataset.url = input2.value;
